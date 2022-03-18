@@ -8,7 +8,7 @@
 </head>
 
 <body>
-  <canvas id="canvas" width="300" height="600" style="background-color:black; border:  1px solid red;;"></canvas>
+  <canvas id="canvas" width="300" height="600" style="background-color:black; border:  1px solid red;"></canvas>
   <div>
     <button id="hackOn">HACK.exe</button>
     <button id="hack-Off">Hack.deExe</button>
@@ -33,7 +33,7 @@
     let collisionBall = false;
     const blockColors = ["red", 'darkorange', 'darkslategray', 'green', 'purple', 'cyan', 'brown', 'deepskyblue', 'hotpink'];
     let tekCift = 0;
-    let bulletSPower = 500;
+    let bulletSPower = 150;
     let drawBall = function () {
       ctx.fillStyle = `rgb(248, 251, 255,${this.opacity})`;
       ctx.beginPath();
@@ -167,7 +167,7 @@
       dx: 0,
       dy: 0,
       dVx: 0,
-      dVy: +0 / FPS,
+      dVy: +30 / FPS,
       h: 10,
       number: 1,
       w: 20,
@@ -247,6 +247,7 @@
 
     myInterval = setInterval(function () {
       ctx.clearRect(0, 0, virtual_CWIDTH, virtual_CHEIGHT);
+
       character.draw();
 
       for (let i = 0; i < 2; i++) {

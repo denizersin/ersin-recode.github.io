@@ -11,314 +11,326 @@
   <canvas id="canvas" width="300" height="600" style="background-color:black; border:  1px solid red;;"></canvas>
   <div>
     <button id="hackOn">HACK.exe</button>
-    <button id="hack Off">Hack.deExe</button>
+    <button id="hack-Off">Hack.deExe</button>
 
   </div>
 
   <script>
-const virtual_CWIDTH = 588;
-const virtual_CHEIGHT = 595;
-const CHEIGHT = 595;
-const CWIDTH = 294;
-const canvas = document.getElementById('canvas');
-const ctx = canvas.getContext('2d');
-const FPS = 60;
+    const virtual_CWIDTH = 588;
+    const virtual_CHEIGHT = 595;
+    const CHEIGHT = 595;
+    const CWIDTH = 294;
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    const FPS = 60;
 
-ctx.beginPath();
-ctx.strokeStyle = "white";
-ctx.moveTo(300, 0);
-ctx.lineTo(300, 600);
-ctx.stroke();
-
-let collisionBall = false;
-const blockColors = ["red", 'darkorange', 'darkslategray', 'green', 'purple', 'cyan', 'brown', 'deepskyblue', 'hotpink'];
-let tekCift = 0;
-let bulletSPower = 150;
-let drawBall = function () {
-    ctx.fillStyle = `rgb(248, 251, 255,${this.opacity})`;
     ctx.beginPath();
-    ctx.moveTo(this.x, this.y);
-    ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2, true); // Outer circle
-    ctx.fill();
-    ctx.closePath();
-}
-let updateBall = function () {
-    this.dx += this.dVx;
-    this.dy += this.dVy;
-    this.x += this.dx;
-    this.y += this.dy;
-    this.opacity -= 0.015
-}
-let row = 0;
+    ctx.strokeStyle = "white";
+    ctx.moveTo(300, 0);
+    ctx.lineTo(300, 600);
+    ctx.stroke();
 
-//collision ball effect
-let collisionX = 100;
-let collisionY = 100;
-let ballR = 20;
-let ballColor = 'rgb(248, 251, 255,1)';
-const collBall = {
-    r: 0,
-    x: 0,
-    y: 0,
-    dx: -5,
-    dy: 0,
-    dVy: +35 / FPS,
-    dVx: 0,
-    color: ballColor,
-    opacity: 1,
-    draw: drawBall,
-    update: updateBall
-}
+    let collisionBall = false;
+    const blockColors = ["red", 'darkorange', 'darkslategray', 'green', 'purple', 'cyan', 'brown', 'deepskyblue', 'hotpink'];
+    let tekCift = 0;
+    let bulletSPower = 500;
+    let drawBall = function () {
+      ctx.fillStyle = `rgb(248, 251, 255,${this.opacity})`;
+      ctx.beginPath();
+      ctx.moveTo(this.x, this.y);
+      ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2, true); // Outer circle
+      ctx.fill();
+      ctx.closePath();
+    }
+    let updateBall = function () {
+      this.dx += this.dVx;
+      this.dy += this.dVy;
+      this.x += this.dx;
+      this.y += this.dy;
+      this.opacity -= 0.015
+    }
+    let row = 0;
 
-let size = 7;
-const collBalls = [];
-for (let i = 0; i < size; i++) {
-    collBalls[i] = Object.assign({}, collBall);
-    collBalls[i].r = Math.floor(Math.random() * 5);
-}
+    //collision ball effect
+    let collisionX = 100;
+    let collisionY = 100;
+    let ballR = 20;
+    let ballColor = 'rgb(248, 251, 255,1)';
+    const collBall = {
+      r: 0,
+      x: 0,
+      y: 0,
+      dx: -5,
+      dy: 0,
+      dVy: +35 / FPS,
+      dVx: 0,
+      color: ballColor,
+      opacity: 1,
+      draw: drawBall,
+      update: updateBall
+    }
 
-//clearInterval(myInterval);
-function setXY(X, Y) {
-    for (let i = 0; i < collBalls.length; i++) {
+    let size = 7;
+    const collBalls = [];
+    for (let i = 0; i < size; i++) {
+      collBalls[i] = Object.assign({}, collBall);
+      collBalls[i].r = Math.floor(Math.random() * 5);
+    }
+
+    //clearInterval(myInterval);
+    function setXY(X, Y) {
+      for (let i = 0; i < collBalls.length; i++) {
         collBalls[i].x = X + Math.floor(Math.random() * (ballR)) - Math.floor(Math.random() * (ballR));
         collBalls[i].y = Y + Math.floor(Math.random() * (ballR)) - Math.floor(Math.random() * (ballR));
         collBalls[i].dy = 0;
         collBalls[i].opacity = 1;
         collBalls[i].color = blockColors[Math.floor(Math.random() * blockColors.length)];
+      }
     }
-}
-setXY(collisionX, collisionY);// set start XY
+    setXY(collisionX, collisionY);// set start XY
 
 
 
 
-//then drawi t
+    //then drawi t
 
 
-const blockObj = {
-    x: 0,
-    y: CHEIGHT / 2 - (85 / 2),
-    dx: -1,
-    dy: 0,
-    w: 60,
-    h: 85,
-    color: '',
-    number: 5,
-    jump: function () { },
-    draw: function () {
+    const blockObj = {
+      x: 0,
+      y: CHEIGHT / 2 - (85 / 2),
+      dx: -1,
+      dy: 0,
+      w: 60,
+      h: 85,
+      color: '',
+      number: 5,
+      jump: function () { },
+      draw: function () {
         if (this.number != 0) {
-            ctx.fillStyle = this.color;
-            ctx.strokeStyle = 'black';
-            ctx.strokeRect(this.x, this.y, this.w, this.h);
+          ctx.fillStyle = this.color;
+          ctx.strokeStyle = 'black';
+          ctx.strokeRect(this.x, this.y, this.w, this.h);
 
-            ctx.fillRect(this.x, this.y, this.w, this.h);
-            ctx.fillStyle = 'white';
-            ctx.font = "30px Arial";
-            ctx.fillText(this.number, this.x + 20, this.y + 50);
+          ctx.fillRect(this.x, this.y, this.w, this.h);
+          ctx.fillStyle = 'white';
+          ctx.font = "30px Arial";
+          ctx.fillText(this.number, this.x + 20, this.y + 50);
         }
-    },
-    update: function () {
+      },
+      update: function () {
         this.x += this.dx;
+      }
     }
-}
 
-size = 7;
-const blockArr = [[], []];
-let x = CWIDTH;
-let y = 0;
-for (let i = 0; i < 2; i++) {
-    for (let j = 0; j < size; j++) {
+    size = 7;
+    const blockArr = [[], []];
+    let x = CWIDTH;
+    let y = 0;
+    for (let i = 0; i < 2; i++) {
+      for (let j = 0; j < size; j++) {
         blockArr[i][j] = Object.assign({}, blockObj);
         blockArr[i][j].y = y;
         blockArr[i][j].x = x;
         console.log(blockArr[i][j]);
         y += blockObj.h;
 
+      }
+      x += CWIDTH
+      y = 0;
     }
-    x += CWIDTH
-    y = 0;
-}
-let level = 0;
-function setBlockXY(row) {
-    for (let i = 0; i < blockArr[0].length; i++) {
+    let level = 0;
+    function setBlockXY(row) {
+      for (let i = 0; i < blockArr[0].length; i++) {
         level = tekCift;
         if (level > 15) {
-            level = 15;
+          level = 15;
         }
         blockArr[row][i].x = virtual_CWIDTH;
 
         blockArr[row][i].number = Math.floor(Math.random() * 5 + 2 + level)
         blockArr[row][i].color = blockColors[Math.floor(Math.random() * blockColors.length)];
 
+      }
     }
-}
-function setColor() { //do it jus one time
-    for (let i = 0; i < 2; i++) {
+    function setColor() { //do it jus one time
+      for (let i = 0; i < 2; i++) {
         for (let j = 0; j < size; j++) {
-            blockArr[i][j].color = blockColors[Math.floor(Math.random() * blockColors.length)]
+          blockArr[i][j].color = blockColors[Math.floor(Math.random() * blockColors.length)]
         }
+      }
     }
-}
-setColor();
+    setColor();
 
-const character = {
-    x: 0,
-    y: 0,
-    dx: 0,
-    dy: 0,
-    dVx: 0,
-    dVy: +25 / FPS,
-    h: 10,
-    number: 1,
-    w: 20,
-    color: 'white',
-    draw: blockObj.draw,
-    update: function () {
-        if (this.y + this.h > 602) {location.reload(); window.alert(`yandin skor:${this.number}`);  }
+    const character = {
+      x: 0,
+      y: 74,
+      dx: 0,
+      dy: 0,
+      dVx: 0,
+      dVy: +0 / FPS,
+      h: 10,
+      number: 1,
+      w: 20,
+      color: 'white',
+      draw: blockObj.draw,
+      update: function () {
+        if (this.y + this.h > 602) { location.reload(); window.alert(`yandin skor:${this.number}`); }
         if (this.y < 0) {
-            this.dy = 0;
-            this.y = 0;
+          this.dy = 0;
+          this.y = 0;
         }
         this.x += this.dx
         this.y += this.dy
         this.dx += this.dVx;
         this.dy += this.dVy;
 
+      }
     }
-}
 
 
 
 
-let BlocChangeTime = (Math.abs(blockArr[0][0].x - (- blockArr[0][0].w / 2))) / Math.abs(blockArr[0][0].dx * FPS);
-console.log(BlocChangeTime)
-myInterval2 = setInterval(function () {
-    if (tekCift % 2 == 0) {
+    let BlocChangeTime = (Math.abs(blockArr[0][0].x - (- blockArr[0][0].w / 2))) / Math.abs(blockArr[0][0].dx * FPS);
+    console.log(BlocChangeTime)
+    myInterval2 = setInterval(function () {
+      if (tekCift % 2 == 0) {
         row = 1;
         setBlockXY(0);
-    }
-    else {
+      }
+      else {
         row = 0;
         setBlockXY(1);
+      }
+      tekCift += 1;
+    }, 1000 * BlocChangeTime)
+    console.log(BlocChangeTime - 300)
+
+
+    let drawBullet = function () {
+      ctx.fillStyle = `rgb(255, 255, 255)`;
+      ctx.beginPath();
+      ctx.moveTo(this.x, this.y);
+      ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2, true); // Outer circle
+      ctx.fill();
+      ctx.closePath();
     }
-    tekCift += 1;
-}, 1000 * BlocChangeTime)
-console.log(BlocChangeTime - 300)
+    let updateBullet = function () {
+      this.x += this.dx;
+      this.y += this.dy;
+      this.dy += this.dVy;
+    }
+    const bulletObj = {
+      x: character.x + character.w,
+      y: 0,
+      r: 7,
+      dx: 5,
+      dy: 0,
+      dVy: 0,
+      draw: drawBullet,
+      update: updateBullet
+    }
+    const bulletArr = [];
+    let BulletInterval;
+    function setBUlletInterval() {
+      BulletInterval = setInterval(function () {
+        bulletArr.push(Object.assign({}, bulletObj));
+        bulletArr[bulletArr.length - 1].y = character.y + character.h;
+      },
+        bulletSPower)
+    }
+    setBUlletInterval();
 
-
-let drawBullet = function () {
-    ctx.fillStyle = `rgb(255, 255, 255)`;
-    ctx.beginPath();
-    ctx.moveTo(this.x, this.y);
-    ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2, true); // Outer circle
-    ctx.fill();
-    ctx.closePath();
-}
-let updateBullet = function () {
-    this.x += this.dx;
-    this.y += this.dy;
-    this.dy += this.dVy;
-}
-const bulletObj = {
-    x: character.x + character.w,
-    y: 0,
-    r: 7,
-    dx: 5,
-    dy: 0,
-    dVy: 0,
-    draw: drawBullet,
-    update: updateBullet
-}
-const bulletArr = [];
-BulletInterval = setInterval(function () {
-    bulletArr.push(Object.assign({}, bulletObj));
-    bulletArr[bulletArr.length - 1].y = character.y + character.h;
-},
-    bulletSPower)
-
-//arr.splice(i,1) //remove ith element
+    //arr.splice(i,1) //remove ith element
 
 
 
 
-myInterval = setInterval(function () {
-    ctx.clearRect(0, 0, virtual_CWIDTH, virtual_CHEIGHT);
-    character.draw();
+    myInterval = setInterval(function () {
+      ctx.clearRect(0, 0, virtual_CWIDTH, virtual_CHEIGHT);
+      character.draw();
 
-    for (let i = 0; i < 2; i++) {
+      for (let i = 0; i < 2; i++) {
         for (let j = 0; j < size; j++) {
-            blockArr[i][j].draw();
-            blockArr[i][j].update();
+          blockArr[i][j].draw();
+          blockArr[i][j].update();
         }
-    }
+      }
 
 
-    let a = true;
-    for (let j = 0; j < bulletArr.length; j++) {
+      let a = true;
+      for (let j = 0; j < bulletArr.length; j++) {
         bulletArr[j].draw();
         bulletArr[j].update();
         if (bulletArr[j].x > CWIDTH || bulletArr[j].y > 600) {
-            bulletArr.splice(j, 1);
-            j--;
-            continue;
+          bulletArr.splice(j, 1);
+          j--;
+          continue;
         }
         for (let i = 0; i < 7; i++) {
-            if ((blockArr[row][i].number != 0) && (bulletArr[j].x + bulletArr[j].r >= blockArr[row][i].x) &&
-                ((bulletArr[j].y) - bulletArr[j].r <= blockArr[row][i].y + blockArr[row][i].h) && (bulletArr[j].y - 2 * bulletArr[j].r >= blockArr[row][i].y)) {
-                blockArr[row][i].number -= 1;
-                if (blockArr[row][i].number == 0) { character.number += 1; }
-                collisionBall = true;
-                setXY(bulletArr[j].x, bulletArr[j].y)
-                bulletArr[j].dx *= -1;
-                bulletArr[j].x -= 3;
-                bulletArr[j].dVy = 15 / 60;
-                bulletArr[j].r = 5;
-                setTimeout(function () { bulletArr.splice(j, 1); }, 50)
-                //
-                j--;
-                a = false;
-                break;
-            }
-        }
-
-
+          if ((blockArr[row][i].number != 0) && (bulletArr[j].x + bulletArr[j].r >= blockArr[row][i].x) &&
+           (( ( ( bulletArr[j].y - bulletArr[j].r >= blockArr[row][i].y)  && (bulletArr[j].y) <= blockArr[row][i].y + blockArr[row][i].h))||( ( bulletArr[j].y + bulletArr[j].r <= blockArr[row][i].y+ blockArr[row][i].h)  && (bulletArr[j].y) >= blockArr[row][i].y )))  {
+      blockArr[row][i].number -= 1;
+      if (blockArr[row][i].number == 0) { character.number += 1; }
+      collisionBall = true;
+      setXY(bulletArr[j].x, bulletArr[j].y)
+      bulletArr[j].dx *= -1;
+      bulletArr[j].x -= 3;
+      bulletArr[j].dVy = 15 / 60;
+      bulletArr[j].r = 5;
+      setTimeout(function () { bulletArr.splice(j, 1); }, 50)
+      //
+      j--;
+      a = false;
+      break;
     }
+          }
+
+
+        }
     for (let i = 0; i < 7; i++) {
 
-        if (blockArr[row][i].number != 0 && character.x + character.w >= blockArr[row][i].x &&
-            (character.y + character.h >= blockArr[row][i].y && character.y <= blockArr[row][i].y + blockArr[row][i].h)) {
-            window.alert(`yandin skorun: ${character.number}`)
-            location.reload();
-            clearInterval(myInterval)
-        }
+      if (blockArr[row][i].number != 0 && character.x + character.w >= blockArr[row][i].x &&
+        (character.y + character.h >= blockArr[row][i].y && character.y <= blockArr[row][i].y + blockArr[row][i].h)) {
+        window.alert(`yandin skorun: ${character.number}`)
+        location.reload();
+        clearInterval(myInterval)
+      }
 
     }
     character.update();
     if (collisionBall) {
 
-        for (let i = 0; i < collBalls.length; i++) {
-            collBalls[i].draw();
-            collBalls[i].update();
-        }
+      for (let i = 0; i < collBalls.length; i++) {
+        collBalls[i].draw();
+        collBalls[i].update();
+      }
     }
 
-}, 1000 / 60)
+      }, 1000 / 60)
 
-console.log(bulletArr)
+    console.log(bulletArr)
 
 
-canvas.addEventListener('click', event => {
-    character.dy = -6;
-});
+    canvas.addEventListener('click', event => {
+      character.dy = -6;
+    });
 
-setInterval(function () {
-    console.log('gello');
-}, 2000)
+    setInterval(function () {
+      console.log('gello');
+    }, 2000)
 
-const hacOn = document.getElementById('hackOn');
-canvas.addEventListener('click', event => {
-    bulletSPower = 50;
-});
+    const hackOn = document.getElementById('hackOn');
+    hackOn.addEventListener('click', event => {
+      bulletSPower = 50;
+      clearInterval(BulletInterval);
+      setBUlletInterval();
+    });
+    const hackOff = document.getElementById('hack-Off');
+    hackOff.addEventListener('click', event => {
+      bulletSPower = 150;
+      clearInterval(BulletInterval);
+      setBUlletInterval();
+    });
 
 
 

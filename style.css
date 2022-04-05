@@ -1,0 +1,190 @@
+:root {
+    --background: black;
+    --color: #6495ed;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    box-sizing: border-box;
+    color: white;
+}
+
+.container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(24, 97, 96);
+}
+
+.frame {
+    width: 390px;
+    height: 100vh;
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+}
+
+.frame .content1 {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.frame .content2 {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.frame .content3 {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: .7vh;
+}
+
+.frame .content3 .row_container {
+    width: 90%;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    height: 8.3vh;
+    background-color: black;
+}
+
+.frame .row_container .c {
+    width: 8.3vh;
+    height: 8.3vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    border: 1px solid gray;
+    transform-origin: center center;
+    color: white;
+}
+
+.row_container .c span {
+    display: block;
+    width: max-content;
+    font-size: 2rem;
+}
+
+/*---------------------------------------------------*/
+.content4 {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 10vh;
+}
+
+/*kr == keyboardRow container*/
+.content4 .kr {
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    background-color: rgba(0, 0, 0, 0.647);
+}
+
+.content4 .keyboard_row1 {
+    gap: 2px;
+    padding-left: .5px;
+    padding-right: .5px;
+}
+
+
+.content4 .keyboard_row2 {
+    justify-content: space-between;
+    gap: 2px;
+    padding-left: 3px;
+    padding-right: 5px;
+
+}
+
+.content4 .keyboard_row3 {
+    padding-left: 1px;
+    padding-right: 1px;
+    justify-content: space-evenly;
+    gap: 2px;
+}
+
+.content4 .keyboard_row3 div:nth-child(1) {
+    font-size: 0.7rem;
+    width: 6vh;
+}
+
+.content4 .keyboard_row3 div:last-child {
+    font-size: 0.7rem;
+    width: 6vh;
+}
+
+.content4 .kr .c {
+    height: 7.5vh;
+    width: 5.24vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #818384;
+    border: 1px solid black;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.content4 .kr .c:hover {
+    background-color: #81838460;
+}
+
+.content4 .kr .c span {
+    width: max-content;
+    display: block;
+
+}
+
+
+/* animations*/
+
+.input_word_anm {
+    animation: input_word_anm .6s;
+}
+
+@keyframes input_word_anm {
+
+    0% {
+        transform: rotateX(90deg);
+    }
+
+
+    100% {
+        transform: rotateX(0deg);
+    }
+
+}
+
+.scale_anim {
+    animation: scaleAnim .7s;
+}
+
+@keyframes scaleAnim {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.2);
+    }
+
+    100% {
+        transform: scale(1);
+
+    }
+
+}

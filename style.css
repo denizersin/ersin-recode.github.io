@@ -9,6 +9,7 @@
     list-style: none;
     box-sizing: border-box;
     color: white;
+    font-family: 'Archivo', sans-serif;
 }
 
 .container {
@@ -139,6 +140,9 @@
     cursor: pointer;
 }
 
+.content4 .kr .c:hover {
+    background-color: #81838460;
+}
 
 .content4 .kr .c span {
     width: max-content;
@@ -150,7 +154,7 @@
 /* animations*/
 
 .input_word_anm {
-    animation: input_word_anm .6s;
+    animation: input_word_anm .5s;
 }
 
 @keyframes input_word_anm {
@@ -167,7 +171,7 @@
 }
 
 .scale_anim {
-    animation: scaleAnim .7s;
+    animation: scaleAnim .4s;
 }
 
 @keyframes scaleAnim {

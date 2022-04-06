@@ -17,7 +17,7 @@ let SAT = 0.4; //scaleAnimTime(s)
 let wordColors = ["#787C7E", '#C9B458', '#6AAA64'];
 function setAnimation(colors) {
   animationDelay(1);
-  if (colors == null) { colors = [0, 0, 0, 0, 0];}
+  if (colors == null) { colors = [0, 0, 0, 0, 0]; }
   const currentRowColumns = content3.children[currentRow].children; //divs
 
 
@@ -35,6 +35,7 @@ function setAnimation(colors) {
   for (let index = 0; index < currentRowColumns.length; index++) {
     setTimeout(() => {
       currentRowColumns[index].style.backgroundColor = wordColors[colors[index]];
+      currentRowColumns[index].firstChild.style.color = "white";
     }, index * RAT * 1000);
   }
 
@@ -204,6 +205,7 @@ function findAndColorizeKey(char, color) {
     for (let j = 0; j < rowsChild.length; j++) {
       if (rowsChild[j].firstChild.innerHTML == char) {
         rowsChild[j].style.backgroundColor = wordColors[color];
+        rowsChild[j].firstChild.style.color = 'white';
         return;
       }
 

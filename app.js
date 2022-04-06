@@ -126,11 +126,15 @@ function resetCurrentRow() {
 let delEl = document.getElementById('delete');
 
 delEl.addEventListener('click', () => {
-  if (currentRow > 0) {
+  if (currentCol > 0) {
     let currentRows = content3.children;
     let rowsChild = currentRows[currentRow].children;
     rowsChild[currentCol - 1].firstChild.innerHTML = '';
     setScaleAnim(rowsChild[currentCol - 1]);
+    console.log(currentWord)
+
+    currentWord = currentWord.substring(0, currentCol - 1);
+    console.log(currentWord)
     currentCol--;
   }
 }, true)
@@ -184,7 +188,7 @@ enterEl.addEventListener('click', () => {
       ans2 = answer;
     }
     else {
-      alert('boyle bir kelime yok');
+      alert(currentWord);
       resetCurrentRow();
       currentWord = "";
       currentCol = 0;

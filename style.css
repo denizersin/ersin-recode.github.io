@@ -17,7 +17,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgb(24, 97, 96);
+    background-color: white;
 }
 
 .frame {
@@ -96,6 +96,8 @@
     flex-wrap: nowrap;
     background-color: white;
     color: white;
+    font-size: 1rem;
+    font-weight: 200;
 }
 
 .content4 .keyboard_row1 {
@@ -140,10 +142,11 @@
     align-items: center;
     background-color: #D3D6DA;
     border-radius: 4px;
-    color: black;
+    color: rgba(28, 25, 25, 0.916);
     cursor: pointer;
 }
-.content4 .keyboard_row2 .c{
+
+.content4 .keyboard_row2 .c {
     width: 4vh;
 
 }
@@ -155,7 +158,6 @@
 .content4 .kr .c span {
     width: max-content;
     display: block;
-
 }
 
 

@@ -126,7 +126,7 @@ function resetCurrentRow() {
 let delEl = document.getElementById('delete');
 
 delEl.addEventListener('click', () => {
-  if (currentRow >= 0) {
+  if (currentRow > 0) {
     let currentRows = content3.children;
     let rowsChild = currentRows[currentRow].children;
     rowsChild[currentCol - 1].firstChild.innerHTML = '';

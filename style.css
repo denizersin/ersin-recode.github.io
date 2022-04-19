@@ -181,7 +181,7 @@
 }
 
 .scale_anim {
-    animation: scaleAnim .4s;
+    animation: scaleAnim .2s;
 }
 
 @keyframes scaleAnim {

@@ -1,3 +1,4 @@
+
 let currentRow = 0;
 let currentCol = 0;
 let currentWord = ``;
@@ -9,10 +10,12 @@ let X = Math.floor(Math.random() * (str.length / 5));
 X *= 5;
 let answer = str.substring(X, X + 5);
 let ans2 = answer;
+answer = `ADAMX`;
+ans2 = answer;
 //for currentRow on content3 LETTER ANIM when inputted
 
 let RAT = 0.5; //rotate animation time(s)
-let SAT = 0.4; //scaleAnimTime(s)
+let SAT = 0.2; //scaleAnimTime(s)
 
 let wordColors = ["#787C7E", '#C9B458', '#6AAA64'];
 function setAnimation(colors) {
@@ -89,7 +92,6 @@ for (let i = 0; i < 3; i++) {
       keyboardRowsC[j];//this
       if (currentCol != 5) {
         let rows = content3.children;
-        console.log(rows[currentRow].children)
         rows[currentRow].children[currentCol].firstChild.innerHTML = keyboardRowsC[j].firstChild.innerHTML;
         currentWord = `${currentWord + keyboardRowsC[j].firstChild.innerHTML}`;
         setScaleAnim(rows[currentRow].children[currentCol]);
@@ -125,25 +127,76 @@ function resetCurrentRow() {
 
 let delEl = document.getElementById('delete');
 
-delEl.addEventListener('click', () => {
-  if (currentCol > 0) {
-    let currentRows = content3.children;
-    let rowsChild = currentRows[currentRow].children;
-    rowsChild[currentCol - 1].firstChild.innerHTML = '';
-    setScaleAnim(rowsChild[currentCol - 1]);
-    console.log(currentWord)
-
-    currentWord = currentWord.substring(0, currentCol - 1);
-    console.log(currentWord)
-    currentCol--;
-  }
-}, true)
+delEl.addEventListener('click', deleteKey, true)
 
 
 let enterEl = document.getElementById('enter');
 
 
-enterEl.addEventListener('click', () => {
+enterEl.addEventListener('click', enterKey, true);
+
+function findAndColorizeKey(char, color) {
+  console.log(char);
+  console.log('***')
+  let rows = content4.children;
+  let rowsChild;
+  for (let i = 0; i < rows.length; i++) {
+
+    rowsChild = rows[i].children;
+    for (let j = 0; j < rowsChild.length; j++) {
+      if (rowsChild[j].firstChild.innerHTML == char) {
+        //rowsChild[j].style.backgroundColor == `rgb(120, 124, 126)` && color != 0) || color == 0
+        rowsChild[j].style.backgroundColor = wordColors[color];
+        rowsChild[j].firstChild.style.color = 'white';
+
+        console.log(rowsChild[j].firstChild.innerHTML);
+        if (color == 2) {
+          console.log(rowsChild[j].style.backgroundColor);
+
+        }
+        return;
+      }
+
+    }
+
+  }
+
+}
+
+const turkisAlphabet = "ERTYUIOPĞÜASDFGHJKLŞİZCVBNMÖÇ";
+document.addEventListener("keydown", (e) => {
+  let key = e.key.toUpperCase();
+
+  if (turkisAlphabet.indexOf(key) != -1 && currentCol != 5) {
+    let rows = content3.children;
+    rows[currentRow].children[currentCol].firstChild.innerHTML = key;
+    currentWord = `${currentWord + key}`;
+    setScaleAnim(rows[currentRow].children[currentCol]);
+    currentCol++;
+  }
+
+  if (key == "ENTER") {
+    enterKey();
+  }
+  if (key == "BACKSPACE") {
+    deleteKey();
+  }
+
+});
+
+
+function deleteKey() {
+  if (currentCol > 0) {
+    let currentRows = content3.children;
+    let rowsChild = currentRows[currentRow].children;
+    rowsChild[currentCol - 1].firstChild.innerHTML = '';
+    setScaleAnim(rowsChild[currentCol - 1]);
+
+    currentWord = currentWord.substring(0, currentCol - 1);
+    currentCol--;
+  }
+}
+function enterKey() {
   let rows = content3.children;
   let rowsC = rows[currentRow].children;
   for (let i = 0; i < rowsC.length; i++) {
@@ -157,18 +210,23 @@ enterEl.addEventListener('click', () => {
       let colors = [0, 0, 0, 0, 0];
       for (let i = 0; i < 5; i++) {
         if (ans2[i] == currentWord[i]) {
+
           colors[i] = 2;
-          ans2 = ans2.replace(ans2[ans2.indexOf(currentWord[i])], '-');
           findAndColorizeKey(currentWord[i], 2);
+
+          ans2 = ans2.split('');
+          ans2[i] = '-';
+          ans2 = ans2.toString().replaceAll(',', '');
+          let a = currentWord.split('');
+          console.log(ans2);
         }
 
 
       }
       for (let i = 0; i < 5; i++) {
 
-        if (ans2.indexOf(currentWord[i]) != -1) {
+        if (ans2[i] != '-' && ans2.indexOf(currentWord[i]) != -1) {
           colors[i] = 1;
-          ans2 = ans2.replace(ans2[ans2.indexOf(currentWord[i])], '-');
           findAndColorizeKey(currentWord[i], 1);
 
         }
@@ -179,7 +237,7 @@ enterEl.addEventListener('click', () => {
 
       }
 
-
+      console.log(colors)
       setAnimation(colors);
 
       currentRow++;
@@ -198,23 +256,4 @@ enterEl.addEventListener('click', () => {
   else {
     //currentWord is not 5
   }
-}, true);
-
-function findAndColorizeKey(char, color) {
-  let rows = content4.children;
-  let rowsChild;
-  for (let i = 0; i < rows.length; i++) {
-
-    rowsChild = rows[i].children;
-    for (let j = 0; j < rowsChild.length; j++) {
-      if (rowsChild[j].firstChild.innerHTML == char) {
-        rowsChild[j].style.backgroundColor = wordColors[color];
-        rowsChild[j].firstChild.style.color = 'white';
-        return;
-      }
-
-    }
-
-  }
-
 }

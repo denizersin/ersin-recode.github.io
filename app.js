@@ -10,8 +10,6 @@ let X = Math.floor(Math.random() * (str.length / 5));
 X *= 5;
 let answer = str.substring(X, X + 5);
 let ans2 = answer;
-answer = `ADAMX`;
-ans2 = answer;
 //for currentRow on content3 LETTER ANIM when inputted
 
 let RAT = 0.5; //rotate animation time(s)

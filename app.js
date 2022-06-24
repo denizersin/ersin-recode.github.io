@@ -1,257 +1,126 @@
+let rand = Math.floor((Math.random() * (words.length / 5))) * 5;
+let answer = words.substring(rand, rand + 5).toUpperCase();
+console.log(answer);
+let answer2 = answer.split('');
+let currRow = 0, currCol = 0;
 
-let currentRow = 0;
-let currentCol = 0;
-let currentWord = ``;
-const content3 = document.querySelector('.content3');
-const content4 = document.querySelector('.content4'); //keyboardContainer
+const wrdMtrx = Array.from(document.querySelectorAll('.container1>.word')).map(e => { if (e.nodeType == 1) return Array.from(e.children) });
+//wordMatrix =[[row1.children],[row2.children],...];
+const keys = Array.from(document.querySelectorAll('.container2>.kr>.c.letter'));
 
-let str = words[Math.floor(Math.random() * 28)];
-let X = Math.floor(Math.random() * (str.length / 5));
-X *= 5;
-let answer = str.substring(X, X + 5);
-let ans2 = answer;
-//for currentRow on content3 LETTER ANIM when inputted
+const enterBtn = document.getElementById('enter')
+const deleteBtn = document.getElementById('delete')
 
-let RAT = 0.5; //rotate animation time(s)
-let SAT = 0.2; //scaleAnimTime(s)
+let turkisLetters = 'ĞÜŞİÇÖ';
+console.log(turkisLetters.includes('Ş'));
 
-let wordColors = ["#787C7E", '#C9B458', '#6AAA64'];
-function setAnimation(colors) {
-  animationDelay(1);
-  if (colors == null) { colors = [0, 0, 0, 0, 0]; }
-  const currentRowColumns = content3.children[currentRow].children; //divs
+let currentWord = [];
+//keyClickEvents
+keys.forEach(el => { el.addEventListener('click', onKeyClick) });
 
-
-  for (let index = 0; index < currentRowColumns.length; index++) {
-    currentRowColumns[index].classList.add("input_word_anm");
-  }
-
-  setTimeout(() => {
-    for (let i = 0; i < currentRowColumns.length; i++) {
-      currentRowColumns[i].classList.remove("input_word_anm");
-    }
-    animationDelay(0);
-  }, RAT * 5 * 1000);
-
-  for (let index = 0; index < currentRowColumns.length; index++) {
+function onKeyClick(e) {
+    if (currCol == 5) return;
+    let key = typeof e == "object" ? e.currentTarget.firstElementChild.innerHTML : e;
+    wrdMtrx[currRow][currCol].innerHTML = key;
+    wrdMtrx[currRow][currCol].style.animation = 'scale-anim1 .2s linear';
+    let col = currCol;
     setTimeout(() => {
-      currentRowColumns[index].style.backgroundColor = wordColors[colors[index]];
-      currentRowColumns[index].firstChild.style.color = "white";
-    }, index * RAT * 1000);
-  }
-
-
-
-
+        wrdMtrx[currRow][col].style.animation = ''
+    }, 200);
+    currentWord.push(key);
+    currCol++;
 }
-
-
-
-function setScaleAnim(element) {
-  element.classList.add('scale_anim');
-  setTimeout(() => {
-    element.classList.remove('scale_anim');
-  }, SAT * 1000);
-  return;
-}
-
-
-
-
-
-
-
-function animationDelay(x) {
-  let childs1 = content3.children;
-  for (let i = 0; i < childs1.length; i++) {
-    let childs2 = childs1[i].children;
-    for (let j = 0; j < childs2.length; j++) {
-      childs2[j].style.animationDelay = `${j * RAT * x + 's'}`;
+document.documentElement.addEventListener('keydown', e => {
+    let key = e.key.toUpperCase();
+    if (key == 'BACKSPACE') onDelteKey();
+    else if (key == 'ENTER') onEnterKey();
+    else if (key.length == 1 && (key.charCodeAt() >= 65 && key.charCodeAt() <= 90) || turkisLetters.includes(key)) {
+        onKeyClick(key);
     }
-  }
-};
-animationDelay(0);
 
-var r = document.querySelector(':root');
-r.style.setProperty('--color', 'lightblue');
-//var rs = getComputedStyle(r);
-//"The value of --blue is: " + rs.getPropertyValue('--color')
+})
 
-let keyboardRows = content4.children;
-for (let i = 0; i < 3; i++) {
-  keyboardRowsC = keyboardRows[i].children;
+let colorArr;
+//ENTERBTN
+enterBtn.addEventListener('click', onEnterKey);
 
-  for (let j = 0; j < keyboardRowsC.length; j++) {
-    if (i == 2 && (j == 0 || j == 9)) { continue; } //ignore enter and delete keys
-    keyboardRowsC[j].addEventListener('click', (e) => {
+function onEnterKey(e) {
+    if (currCol != 5) return;
+    let currTxt = currentWord.join('');
+    if (!words.includes(currTxt)) {
+        wrdMtrx[currRow][0].parentElement.style.animation = `alert .5s ease`;
+        setTimeout(() => {
+            wrdMtrx[currRow].forEach(e => { e.innerHTML = '' })
+            currentWord = []; currCol = 0;
+            wrdMtrx[currRow][0].parentElement.style.animation = ``;
+        }, 500);
 
-      keyboardRowsC = keyboardRows[i].children;
-
-      keyboardRowsC[j];//this
-      if (currentCol != 5) {
-        let rows = content3.children;
-        rows[currentRow].children[currentCol].firstChild.innerHTML = keyboardRowsC[j].firstChild.innerHTML;
-        currentWord = `${currentWord + keyboardRowsC[j].firstChild.innerHTML}`;
-        setScaleAnim(rows[currentRow].children[currentCol]);
-        currentCol++;
-      }
-    }, true);
-  }
-
-}
-
-
-
-
-
-function getIndex(char) {
-  for (let i = 0; i < words.length; i++) {
-    if (words[i][0] == char) {
-      return i;
-    }
-  }
-}
-
-function resetCurrentRow() {
-  let rows = content3.children;
-  let rowsChild = rows[currentRow].children;
-  for (let i = 0; i < rowsChild.length; i++) {
-
-    rowsChild[i].firstChild.innerHTML = '';
-
-  }
-}
-
-
-let delEl = document.getElementById('delete');
-
-delEl.addEventListener('click', deleteKey, true)
-
-
-let enterEl = document.getElementById('enter');
-
-
-enterEl.addEventListener('click', enterKey, true);
-
-function findAndColorizeKey(char, color) {
-  console.log(char);
-  console.log('***')
-  let rows = content4.children;
-  let rowsChild;
-  for (let i = 0; i < rows.length; i++) {
-
-    rowsChild = rows[i].children;
-    for (let j = 0; j < rowsChild.length; j++) {
-      if (rowsChild[j].firstChild.innerHTML == char) {
-        //rowsChild[j].style.backgroundColor == `rgb(120, 124, 126)` && color != 0) || color == 0
-        rowsChild[j].style.backgroundColor = wordColors[color];
-        rowsChild[j].firstChild.style.color = 'white';
-
-        console.log(rowsChild[j].firstChild.innerHTML);
-        if (color == 2) {
-          console.log(rowsChild[j].style.backgroundColor);
-
-        }
         return;
-      }
-
     }
+    colorArr = [0, 0, 0, 0, 0];
+    currentWord.forEach((c, i) => {
+        if (c == answer2[i]) {
+            colorArr[i] = 'green';
+            printKey(c, 'green');
+            currentWord[i] = '';
+            answer2[i] = '';
+        }
+    })
+    currentWord.forEach((c, i) => {
+        if (c != '' && answer2.includes(c)) {
+            colorArr[i] = 'yellow';
+            printKey(c, 'yellow');
+            answer2[answer2.indexOf(currentWord[i])] = '';
+            currentWord[i] = '';
+        }
+        else if (c != '') {
+            colorArr[i] = 'gray';
+            printKey(c, 'gray');
+        }
 
-  }
+    });
+
+    wrdMtrx[currRow].forEach((e, i) => {
+        e.style.animation = `rotate-anim1 .5s linear ${i * 500}ms`;
+        setTimeout(() => { e.classList.add(colorArr[i]) }, (i) * 500 + 250);
+    });
+    if (!(colorArr.includes('gray') || colorArr.includes('yellow'))) {
+        setTimeout(() => {
+            alert('dogru');
+        }, 5 * 500);
+        return;
+    }
+    currRow++;
+    currCol = 0;
+    currentWord = [];
+    answer2 = answer.split('');
+}
+
+//delet Btn
+deleteBtn.addEventListener('click', onDelteKey);
+function onDelteKey(e) {
+    if (currCol == 0) return;
+    currCol--;
+    currentWord.pop();
+    wrdMtrx[currRow][currCol].innerHTML = '';
+    wrdMtrx[currRow][currCol].style.animation = 'scale-anim1 .2s linear';
+    let col = currCol;
+    setTimeout(() => {
+        wrdMtrx[currRow][col].style.animation = '';
+    }, 200);
 
 }
 
-const turkisAlphabet = "ERTYUIOPĞÜASDFGHJKLŞİZCVBNMÖÇ";
-document.addEventListener("keydown", (e) => {
-  let key = e.key.toUpperCase();
-
-  if (turkisAlphabet.indexOf(key) != -1 && currentCol != 5) {
-    let rows = content3.children;
-    rows[currentRow].children[currentCol].firstChild.innerHTML = key;
-    currentWord = `${currentWord + key}`;
-    setScaleAnim(rows[currentRow].children[currentCol]);
-    currentCol++;
-  }
-
-  if (key == "ENTER") {
-    enterKey();
-  }
-  if (key == "BACKSPACE") {
-    deleteKey();
-  }
-
-});
-
-
-function deleteKey() {
-  if (currentCol > 0) {
-    let currentRows = content3.children;
-    let rowsChild = currentRows[currentRow].children;
-    rowsChild[currentCol - 1].firstChild.innerHTML = '';
-    setScaleAnim(rowsChild[currentCol - 1]);
-
-    currentWord = currentWord.substring(0, currentCol - 1);
-    currentCol--;
-  }
-}
-function enterKey() {
-  let rows = content3.children;
-  let rowsC = rows[currentRow].children;
-  for (let i = 0; i < rowsC.length; i++) {
-    rowsC[i].style.animation = "";
-    rowsC[i].style.animationDelay = "0s";
-  }
-
-  if (currentCol == 5) {
-    let index = getIndex(currentWord[0]);
-    if (words[index].indexOf(currentWord) != -1) {
-      let colors = [0, 0, 0, 0, 0];
-      for (let i = 0; i < 5; i++) {
-        if (ans2[i] == currentWord[i]) {
-
-          colors[i] = 2;
-          findAndColorizeKey(currentWord[i], 2);
-
-          ans2 = ans2.split('');
-          ans2[i] = '-';
-          ans2 = ans2.toString().replaceAll(',', '');
-          let a = currentWord.split('');
-          console.log(ans2);
-        }
-
-
-      }
-      for (let i = 0; i < 5; i++) {
-
-        if (ans2[i] != '-' && ans2.indexOf(currentWord[i]) != -1) {
-          colors[i] = 1;
-          findAndColorizeKey(currentWord[i], 1);
-
-        }
-        else if (ans2[i] != '-') {
-          colors[i] = 0;
-          findAndColorizeKey(currentWord[i], 0);
-        }
-
-      }
-
-      console.log(colors)
-      setAnimation(colors);
-
-      currentRow++;
-      currentCol = 0;
-      currentWord = "";
-      ans2 = answer;
+//PrintKey with given color if it is possible
+function printKey(letter, color) {
+    let el = keys.find(e => e.firstElementChild.innerHTML == letter);
+    if (el.classList.contains('green')) return;
+    if (color == 'green') {
+        el.classList.remove('gray');
+        el.classList.remove('yellow');
+        el.classList.add('green');
+        return;
     }
-    else {
-      alert(currentWord);
-      resetCurrentRow();
-      currentWord = "";
-      currentCol = 0;
-    }
-
-  }
-  else {
-    //currentWord is not 5
-  }
+    if (color == 'yellow') { el.classList.add('yellow'); return; }
+    el.classList.add('gray');
 }

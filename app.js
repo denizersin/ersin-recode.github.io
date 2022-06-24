@@ -121,6 +121,7 @@ function printKey(letter, color) {
         el.classList.add('green');
         return;
     }
+    if (el.classList.contains('yellow')) return;
     if (color == 'yellow') { el.classList.add('yellow'); return; }
     el.classList.add('gray');
 }

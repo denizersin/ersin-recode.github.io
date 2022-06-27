@@ -5,97 +5,128 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style2.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
     integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
     crossorigin="anonymous" />
   <script src="https://kit.fontawesome.com/0f0eb67db4.js" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="https://unpkg.com/movie-trailer"></script>
+
 </head>
 
 <body>
 
-  <div class="frame">
 
-    <div class="container1">
-      <div class="word word1">
-        <div class="letter letter1"></div>
-        <div class="letter letter2"></div>
-        <div class="letter letter3"></div>
-        <div class="letter letter4"></div>
-        <div class="letter letter5"></div>
-      </div>
-      <div class="word word2">
-        <div class="letter letter1"></div>
-        <div class="letter letter2"></div>
-        <div class="letter letter3"></div>
-        <div class="letter letter4"></div>
-        <div class="letter letter5"></div>
-      </div>
-      <div class="word word3">
-        <div class="letter letter1"></div>
-        <div class="letter letter2"></div>
-        <div class="letter letter3"></div>
-        <div class="letter letter4"></div>
-        <div class="letter letter5"></div>
-      </div>
-      <div class="word word4">
-        <div class="letter letter1"></div>
-        <div class="letter letter2"></div>
-        <div class="letter letter3"></div>
-        <div class="letter letter4"></div>
-        <div class="letter letter5"></div>
-      </div>
-      <div class="word word5">
-        <div class="letter letter1"></div>
-        <div class="letter letter2"></div>
-        <div class="letter letter3"></div>
-        <div class="letter letter4"></div>
-        <div class="letter letter5"></div>
-      </div>
+  <div id="menu-frame" class="menu-frame">
+
+    <div class="menu-container">
+
+      <a ondragstart="return false" onclick="return false" href="" id="search" class="link menu1 current">
+        <div class="search-icon-container">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+        <div class="inputc">
+          <input type="text" id="search-input">
+        </div>
+      </a>
+      <a ondragstart="return false" onclick="return false" href="" id="discover" class="link menu2">
+        <div class="container">
+          <span class="text">Discover</span>
+        </div>
+      </a>
+      <a ondragstart="return false" onclick="return false" href="" id="trends" class="link menu3">
+        <div class="container">
+          <span class="text">Trends</span>
+        </div>
+      </a>
+      <a ondragstart="return false" onclick="return false" href="#trends" id="movies" class="link menu4">
+        <div class="container">
+          <span class="text">Movies</span>
+        </div>
+      </a>
+      <a ondragstart="return false" onclick="return false" href="" id="series" class="link menu5">
+        <div class="container">
+          <span class="text">Series</span>
+        </div>
+      </a>
+      <a ondragstart="return false" onclick="return false" href="" id="watch-later" class="link menu6">
+        <div class="container">
+          <span class="text">Watch-Later</span>
+        </div>
+      </a>
+
     </div>
 
-    <div class="container2">
-      <div class="keyboard_row1 kr">
-        <div class="c letter"><span class="text">E</span></div>
-        <div class="c letter"><span class="text">R</span></div>
-        <div class="c letter"><span class="text">T</span></div>
-        <div class="c letter"><span class="text">Y</span></div>
-        <div class="c letter"><span class="text">U</span></div>
-        <div class="c letter"><span class="text">I</span></div>
-        <div class="c letter"><span class="text">O</span></div>
-        <div class="c letter"><span class="text">P</span></div>
-        <div class="c letter"><span class="text">Ğ</span></div>
-        <div class="c letter"><span class="text">Ü</span></div>
+
+  </div>
+
+  <!-- discover,search,all things will be displayed in here! -->
+  <div id="main-frame">
+
+
+
+  </div>
+  <div id="movie-viewer-frame">
+    <div class="movie-viewer">
+
+      <div class="content1 content">
+        <img src="https://image.tmdb.org/t/p/w1280/wcKFYIiVDvRURrzglV9kGu7fpfY.jpg" alt="" class="hide">
+        <div class="namec">
+          <span class="poster-name">Doctor Strange </span>
+        </div>
+
+        <div class="posterc">
+          <img id="poster" src="https://image.tmdb.org/t/p/w1280/wcKFYIiVDvRURrzglV9kGu7fpfY.jpg" alt="">
+        </div>
+
+        <div class="video"></div>
+
       </div>
-      <div class="keyboard_row2 kr">
-        <div class="c letter"><span class="text">A</span></div>
-        <div class="c letter"><span class="text">S</span></div>
-        <div class="c letter"><span class="text">D</span></div>
-        <div class="c letter"><span class="text">F</span></div>
-        <div class="c letter"><span class="text">G</span></div>
-        <div class="c letter"><span class="text">H</span></div>
-        <div class="c letter"><span class="text">J</span></div>
-        <div class="c letter"><span class="text">K</span></div>
-        <div class="c letter"><span class="text">L</span></div>
-        <div class="c letter"><span class="text">Ş</span></div>
-        <div class="c letter"><span class="text">İ</span></div>
+      <div class="content2 content">
+        <span id="watch-trailer">Watch Trailer</span>
       </div>
-      <div class="keyboard_row3 kr">
-        <div id="enter" class="c"><span class="text">ENTER</span></div>
-        <div class="c letter"><span class="text">Z</span></div>
-        <div class="c letter"><span class="text">C</span></div>
-        <div class="c letter"><span class="text">V</span></div>
-        <div class="c letter"><span class="text">B</span></div>
-        <div class="c letter"><span class="text">N</span></div>
-        <div class="c letter"><span class="text">M</span></div>
-        <div class="c letter"><span class="text">Ö</span></div>
-        <div class="c letter"><span class="text">Ç</span></div>
-        <div id="delete" class="c"><span class="text">SIL</span></div>
+
+      <div class="content3 content">
+        <span class="genre">Adventure</span><span class="genre">Adventure</span><span class="genre">Adventure</span>
+        <span class="genre">Adventure</span>
       </div>
+
+      <div class="content4 content">
+        <div class="rating">7.6</div>
+      </div>
+      <div class="content5 content">Summary</div>
+
+      <div class="content6 content">
+        <span>Casts</span>
+        <div class="casts">
+
+          <div class="cast">
+            <img src="https://image.tmdb.org/t/p/w1280/uduApOlv4MumUKdc9LtLSBL0bW8.jpg" alt="" class="actor">
+            <span class="name">Benedict CumberBatch</span>
+            <span class="character"> Meilin 'Mei' Lee (voice)</span>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="content7 content">crew</div>
+
     </div>
 
   </div>
-<script src="setWords.js"></script>
-  <script src="app.js"> </script>
+
+  <div id="menu-wrapper" class="menu-wrapper">
+  </div>
+
+
+  <script src="global.js"></script>
+  <script src="app.js"></script>
+  <script src="init.js" type="module"></script>
+
+
+
+
 </body>
 
 </html>

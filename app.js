@@ -51,8 +51,9 @@ function onMouseMove(e) {
     }
     clientY = e instanceof TouchEvent ? e.touches[0].clientY + lasTup : e.clientY + lasMup;
     let Y = clientY - scrollContainer.y;
-    Y = Y <= -120 ? -120 : Y;
-    Y = Y >= 20 ? 20 : Y;
+    Y = Y <= -90 ? -85 : Y;
+    Y = Y >= 60 ? 50 : Y;
+    console.log(Y);
     scrollContainer.style.transform = `translateY(${Y}px)`
 
 }

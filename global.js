@@ -25,9 +25,9 @@ async function getGenres() {
     gender2 = await gender2.json();
     gender2 = gender2.genres
     GENRES = gender1.concat(gender2);
+    return Promise.resolve();
 }
 
-getGenres();
 function getGenreById(id) {
     return GENRES.filter(e => e.id == id)[0].name
 }
@@ -84,7 +84,6 @@ function translateElem2(elem1, elem2) {
     dy = dy / scYrate;
     elem1.style.transform = `scale(${scXrate},${scYrate}) translate3d(${dx}px,${dy}px,${0}px) rotate(90deg)`
 }
-
 
 
 

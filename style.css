@@ -349,10 +349,12 @@ div#cards-viewer {
         display: none;
     }
 
-    #search>.inputc input {
-        height: auto;
+    #search>.inputc  {
+        height: 25px;
     }
-
+    #search>.inputc input{
+        height: 23px;
+    }
 
     /* .cards-container>.movie-card:hover .movie-card-popup {
         transform: translateY(103%) !important;

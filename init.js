@@ -71,7 +71,6 @@ trends.onClick = function () {
 }
 series.addEventListener('click', trends.onClick);
 
-discover.onClick(null);
 
 document.documentElement.addEventListener('click', e => {
     setTimeout(() => {
@@ -79,3 +78,13 @@ document.documentElement.addEventListener('click', e => {
 
     }, 100);
 })
+
+
+
+
+
+async function foo() {
+    await getGenres();
+    discover.onClick(null)
+}
+foo();

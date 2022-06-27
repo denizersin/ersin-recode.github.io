@@ -59,8 +59,7 @@ export class Card {
 
   async onClick(e) {
 
-
-    movieViewer.style.visibility = 'visible';
+    movieViewer.style.visibility = 'visible'
     document.body.style.overflow = 'hidden';
     this.MOVIE_VIEWER = new MovieViewer(this.respond);
 
@@ -69,28 +68,32 @@ export class Card {
     console.log(new Date().getMilliseconds());
 
 
-    await promiseFor(20);
     [this.MOVIE_VIEWER.backdrop_pathImg, this.MOVIE_VIEWER.nameSpan].forEach(e => {
       e.style.transition = '';
       e.style.visibility = 'hidden';
     })
+
     translateElem(this.MOVIE_VIEWER.nameSpan, this.nameSpan);
     translateElem2(this.MOVIE_VIEWER.backdrop_pathImg, this.poster_path_img);
-    await promiseFor(100);
-
+    await new Promise((resolve, reject) => {
+      this.MOVIE_VIEWER.backdrop_pathImg.onload = resolve('A');
+    })
+    await promiseFor(230);
+    console.log(this.MOVIE_VIEWER.nameSpan, this.nameSpan, this.MOVIE_VIEWER.backdrop_pathImg, this.poster_path_img);
     [this.MOVIE_VIEWER.nameSpan, this.nameSpan, this.MOVIE_VIEWER.backdrop_pathImg, this.poster_path_img].forEach(e => {
       e.style.visibility = 'visible';
-      e.style.transition = 'all .5s cubic-bezier(0.165, 0.84, 0.44, 1)'
+      e.style.transition = 'all .6s cubic-bezier(0.165, 0.84, 0.44, 1)'
     })
-    await promiseFor(20)
+    await promiseFor(0)
     this.MOVIE_VIEWER.nameSpan.style.transform = '';
     this.MOVIE_VIEWER.backdrop_pathImg.style.transform = '';
-    movieViewer.style.transition = 'all .5s cubic-bezier(0.165, 0.84, 0.44, 1)'
+    movieViewer.style.transition = 'all 1s cubic-bezier(0.165, 0.84, 0.44, 1)'
     movieViewer.style.backgroundColor = 'black';
+
 
     this.MOVIE_VIEWER.el.querySelectorAll('.content.hide').forEach((e, i) => {
       console.log(e);
-      e.style.transition = `all .1s cubic-bezier(0.165, 0.84, 0.44, 1) ${(i + 1) * 100}ms`;
+      e.style.transition = `all .3s cubic-bezier(0.165, 0.84, 0.44, 1) ${(i + 1) * 100}ms`;
       e.style.opacity = '1';
       e.style.transform = 'translateY(0px)';
     });
@@ -112,4 +115,6 @@ export function closeMovieViewer() {
   closeMovieViewer.MOVIE_VIEWER.el.style.display = 'none';
   document.body.style.overflow = 'visible';
   closeMovieViewer.MOVIE_VIEWER = null;
+  movieViewer.style.backgroundColor = 'transparent';
+
 }

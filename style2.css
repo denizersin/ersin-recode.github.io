@@ -32,7 +32,9 @@ div#back {
     overflow: scroll;
 }
 
-.movie-viewer>.content {}
+.movie-viewer>.content.hide {
+    background-color: black;
+}
 
 .movie-viewer>.content1 {
     position: relative;
@@ -40,7 +42,7 @@ div#back {
     height: max-content;
 }
 
-.movie-viewer>.content1>img.hide {
+.movie-viewer>.content1 img.hide {
     width: 100%;
     visibility: hidden;
 }
@@ -139,9 +141,9 @@ div#back {
     display: flex;
     justify-content: center;
     color: black;
-    font-size: 50px;
-    -webkit-text-stroke-width: 0.4px;
-    -webkit-text-stroke-color: rgba(212, 182, 12, 0.989);
+    font-size: 100px;
+    -webkit-text-stroke-width: .6px;
+    -webkit-text-stroke-color: rgba(241, 206, 11, 0.989);
 }
 
 .movie-viewer>.content5 {
@@ -159,6 +161,8 @@ div#back {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    color: rgba(203, 175, 16, 0.989);;
+
 }
 
 .content6>.casts {
@@ -167,7 +171,6 @@ div#back {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    border: .5px solid rgba(212, 182, 12, 0.989);
     gap: 10px;
 }
 

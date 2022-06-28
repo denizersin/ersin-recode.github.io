@@ -42,7 +42,7 @@ div#back {
     height: max-content;
 }
 
-.movie-viewer>.content1 img.hide {
+.movie-viewer>.content1 #hiddenposter {
     width: 100%;
     visibility: hidden;
 }
@@ -76,7 +76,8 @@ div#back {
 }
 
 .movie-viewer>.content1>.namec>span.poster-name {
-    font-size: 4em;
+    font-size: 4vmax;
+    flex-shrink: 1;
 }
 
 .content1>.video{
@@ -162,7 +163,7 @@ div#back {
     justify-content: center;
     align-items: center;
     color: rgba(203, 175, 16, 0.989);;
-
+    gap: 10px;
 }
 
 .content6>.casts {
@@ -182,7 +183,7 @@ div#back {
     align-items: center;
     font-size: 15px;
     text-align: center;
-
+    gap: 1px;
 }
 
 .content6>.casts>.cast span.name {}
@@ -199,7 +200,8 @@ div#back {
     #movie-viewer-frame {}
 
     .movie-viewer>.content1>.namec>span.poster-name {
-        font-size: 1.4em;
+        font-size: 4vmax;
+
     }
 
     .movie-viewer>.content2>span#watch-trailer {

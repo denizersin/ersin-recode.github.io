@@ -11,12 +11,14 @@
     box-sizing: border-box;
     text-decoration: none;
     font-family: 'Archivo', sans-serif;
+    overflow-x: visible;
 
 }
 
 body {
     background-color: var(--home-background);
     background-color: black;
+    width: 98vw;
     display: flex;
     flex-direction: column;
 }
@@ -33,6 +35,7 @@ span {
     margin-top: 5px;
     display: flex;
     align-items: center;
+    
 }
 
 .menu-frame>.menu-container {
@@ -42,6 +45,7 @@ span {
     justify-content: center;
     gap: 30px;
     font-size: 24px;
+    overflow-x: hidden;
 }
 
 .menu-frame>.menu-container>a {
@@ -81,7 +85,7 @@ span {
 }
 
 #search>.inputc.show {
-    overflow: visible;
+    overflow: hidden;
     width: 30vw;
 }
 
@@ -113,7 +117,9 @@ span {
 
 
 /*main-frame*/
-
+#main-frame{
+    width: 100%;
+}
 
 
 

@@ -25,21 +25,17 @@ export class MovieViewer {
         <div id="back" class="back"><i class="fa-solid fa-angle-left"></i></div>
 
         <div class="content1 content">
-        <img src="https://image.tmdb.org/t/p/w1280${this.respond.backdrop_path}" alt="" class="hide">
+        <img id="hiddenposter" src="https://image.tmdb.org/t/p/w1280${this.respond.backdrop_path}" style="visibility: hidden;" alt="" >
 
         <div class="namec">
-          <span class="poster-name hide">${this.respond.name || this.respond.original_title}</span>
+          <span class="poster-name" style="visibility: hidden;">${this.respond.name || this.respond.original_title}</span>
         </div> <!-- absolute -->
 
         <div class="posterc">
-          <img id="poster" src="https://image.tmdb.org/t/p/w1280${this.respond.backdrop_path}" class="hide">
+          <img id="poster" src="https://image.tmdb.org/t/p/w1280${this.respond.backdrop_path}" style="visibility: hidden;">
         </div>
 
-        <div class="video">
-        <video tabindex="-1" class="video-stream html5-main-video" webkit-playsinline="" playsinline="" controlslist="nodownload"  src="">
-        <source src="/media/cc0-videos/flower.webm" type="video/webm">
-        </video>
-        </div> <!-- 100% absolute -->
+        <div class="video"></div> <!-- 100% absolute -->
 
       </div>
       <div class="content2 content hide">
@@ -74,7 +70,6 @@ export class MovieViewer {
 
     </div>
       `;
-    console.log(this.el.innerHTML);
     movieViewer.innerHTML = '';
     this.backdrop_pathImg = this.el.querySelector('.posterc>img#poster');
     this.nameSpan = this.el.querySelector('.namec>span.poster-name');
@@ -82,6 +77,7 @@ export class MovieViewer {
 
     let images = this.el.querySelectorAll('.content1 img');
     Array.from(images).map(e => {
+
       this.waitResources.push(new Promise((resolve, reject) => {
         e.onload = resolve;
         e.onerror = reject;
@@ -97,13 +93,16 @@ export class MovieViewer {
 
   }
   async fetchRequests() {
+
     let team = await fetch(`https://api.themoviedb.org/3/movie/${this.respond.id}/credits?api_key=${API_KEY}&language=en-US`)
     this.team = await team.json();
     this.setEl();
-    movieViewer.append(this.el);
-    await promiseFor(20);
-    console.log(this.waitResources);
-    return this.waitResources;
+
+    movieViewer.append(this.el); //render
+    await promiseFor(0);
+    await Promise.all(this.waitResources);
+
+    return;
 
   }
 

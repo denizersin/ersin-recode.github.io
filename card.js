@@ -65,26 +65,18 @@ export class Card {
 
     //loading...
     await this.MOVIE_VIEWER.fetchRequests();
-    console.log(new Date().getMilliseconds());
 
-
-    [this.MOVIE_VIEWER.backdrop_pathImg, this.MOVIE_VIEWER.nameSpan].forEach(e => {
-      e.style.transition = '';
-      e.style.visibility = 'hidden';
-    })
 
     translateElem(this.MOVIE_VIEWER.nameSpan, this.nameSpan);
     translateElem2(this.MOVIE_VIEWER.backdrop_pathImg, this.poster_path_img);
-    await new Promise((resolve, reject) => {
-      this.MOVIE_VIEWER.backdrop_pathImg.onload = resolve('A');
-    })
-    await promiseFor(230);
-    console.log(this.MOVIE_VIEWER.nameSpan, this.nameSpan, this.MOVIE_VIEWER.backdrop_pathImg, this.poster_path_img);
+    await promiseFor(10);
+
     [this.MOVIE_VIEWER.nameSpan, this.nameSpan, this.MOVIE_VIEWER.backdrop_pathImg, this.poster_path_img].forEach(e => {
       e.style.visibility = 'visible';
       e.style.transition = 'all .6s cubic-bezier(0.165, 0.84, 0.44, 1)'
     })
-    await promiseFor(0)
+    await promiseFor(10);
+
     this.MOVIE_VIEWER.nameSpan.style.transform = '';
     this.MOVIE_VIEWER.backdrop_pathImg.style.transform = '';
     movieViewer.style.transition = 'all 1s cubic-bezier(0.165, 0.84, 0.44, 1)'
@@ -92,7 +84,6 @@ export class Card {
 
 
     this.MOVIE_VIEWER.el.querySelectorAll('.content.hide').forEach((e, i) => {
-      console.log(e);
       e.style.transition = `all .3s cubic-bezier(0.165, 0.84, 0.44, 1) ${(i + 1) * 100}ms`;
       e.style.opacity = '1';
       e.style.transform = 'translateY(0px)';
@@ -101,8 +92,11 @@ export class Card {
     //back click...
     closeMovieViewer.MOVIE_VIEWER = this.MOVIE_VIEWER;
     this.MOVIE_VIEWER.back.addEventListener('click', closeMovieViewer)
-
-
+    
+    await promiseFor(1000);
+    [this.MOVIE_VIEWER.nameSpan, this.nameSpan, this.MOVIE_VIEWER.backdrop_pathImg, this.poster_path_img].forEach(e => {
+      e.style.transition = '';
+    })
   }
   setEvents() {
     this.el.onClick = this.onClick;

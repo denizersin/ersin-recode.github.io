@@ -63,10 +63,10 @@ export class Card {
     document.body.style.overflow = 'hidden';
     this.MOVIE_VIEWER = new MovieViewer(this.respond);
 
-    //loading...
-    await this.MOVIE_VIEWER.fetchRequests();
 
-
+    await Promise.any([this.MOVIE_VIEWER.fetchRequests(), promiseFor(2000)]);
+    //if 2000 then we didnt reach all fetch
+    
     translateElem(this.MOVIE_VIEWER.nameSpan, this.nameSpan);
     translateElem2(this.MOVIE_VIEWER.backdrop_pathImg, this.poster_path_img);
     await promiseFor(10);
@@ -92,7 +92,7 @@ export class Card {
     //back click...
     closeMovieViewer.MOVIE_VIEWER = this.MOVIE_VIEWER;
     this.MOVIE_VIEWER.back.addEventListener('click', closeMovieViewer)
-    
+
     await promiseFor(1000);
     [this.MOVIE_VIEWER.nameSpan, this.nameSpan, this.MOVIE_VIEWER.backdrop_pathImg, this.poster_path_img].forEach(e => {
       e.style.transition = '';
@@ -112,3 +112,5 @@ export function closeMovieViewer() {
   movieViewer.style.backgroundColor = 'transparent';
 
 }
+
+

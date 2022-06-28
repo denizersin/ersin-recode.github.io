@@ -18,7 +18,7 @@ div#back {
     left: 0;
     color: white;
     font-size: 40px;
-    z-index: 20;
+    z-index: 99;
     cursor: pointer;
 }
 

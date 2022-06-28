@@ -80,7 +80,6 @@ export class MovieViewer {
 
       this.waitResources.push(new Promise((resolve, reject) => {
         e.onload = resolve;
-        e.onerror = reject;
       }))
     })
     this.iframe = this.el.querySelector('video');
